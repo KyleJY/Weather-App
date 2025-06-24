@@ -1,0 +1,32 @@
+{
+  "lat": "9.7808N",
+  "lon": "124.1484E",
+  "elevation": 306,
+  "timezone": "Asia/Manila",
+  "units": "metric",
+  "current": {
+    "icon": "rain",
+    "icon_num": 11,
+    "summary": "Rain",
+    "temperature": 27,
+    "feels_like": 31.2,
+    "wind_chill": 29.2,
+    "dew_point": 23.5,
+    "wind": {
+      "speed": 0.8,
+      "gusts": 3.9,
+      "angle": 226,
+      "dir": "SW"
+    },
+    "precipitation": {
+      "total": 1.3,
+      "type": "rain"
+    },
+    "cloud_cover": 100,
+    "ozone": 262.64,
+    "pressure": 1008,
+    "uv_index": 3.94,
+    "humidity": 81,
+    "visibility": 20.25
+  }
+}
