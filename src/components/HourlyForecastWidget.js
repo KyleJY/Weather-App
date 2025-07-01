@@ -1,36 +1,45 @@
 import WeatherIcon from "./WeatherIcon";
+import { useContext } from "react";
+import WeatherContext from "../context/weather.context";
 
 function HourlyForecastWidget({ data }) {
+  const { units } = useContext(WeatherContext);
   const { date, icon, summary, temperature, precipitation, wind } = data;
-
+  const locale = navigator.language;
   //date format
 
   const now_date = {
-    day: new Intl.DateTimeFormat(navigator.language, {
+    day: new Intl.DateTimeFormat(locale, {
       weekday: "short",
       day: "2-digit",
       month: "2-digit",
     }).format(new Date()),
-    time: new Intl.DateTimeFormat(navigator.language, {
+    time: new Intl.DateTimeFormat(locale, {
       hour: "2-digit",
       minute: "2-digit",
     }).format(new Date().setMinutes(0)),
   };
   const weather_date = {
-    day: new Intl.DateTimeFormat(navigator.language, {
+    day: new Intl.DateTimeFormat(locale, {
       weekday: "short",
       day: "2-digit",
       month: "2-digit",
     }).format(new Date(date)),
-    time: new Intl.DateTimeFormat(navigator.language, {
+    time: new Intl.DateTimeFormat(locale, {
       hour: "2-digit",
       minute: "2-digit",
     }).format(new Date(date).setMinutes(0)),
   };
+
+  const midnightTime = new Intl.DateTimeFormat(locale, {
+    hour: "2-digit",
+    minute: "2-digit",
+  }).format(new Date(date).setHours(0, 0, 0, 0));
+
   weather_date.day =
     weather_date.day === now_date.day && weather_date.time === now_date.time
-      ? "Today"
-      : weather_date.time === "12:00 AM"
+      ? "Now"
+      : weather_date.time === midnightTime
       ? weather_date.day
       : "";
 
@@ -42,13 +51,17 @@ function HourlyForecastWidget({ data }) {
         <div className="icon">
           <WeatherIcon iconNumber={icon} summary={summary} />
         </div>
-        <div className="temperature">{Math.round(temperature)} °C</div>
+        <div className="temperature">
+          {Math.round(temperature)} {units.temperature}
+        </div>
       </div>
       <div className="precipitation">
-        {Math.round(precipitation.total)} mm/h
+        {Math.round(precipitation.total)} {units.precipitation}
       </div>
       <div className="wind">
-        <div className="speed">{Math.round(wind.speed)} mph</div>
+        <div className="speed">
+          {Math.round(wind.speed)} {units.wind_speed}
+        </div>
         <div
           className="dir"
           style={{ transform: `rotate(${-45 + wind.angle}deg)` }}
