@@ -24,22 +24,27 @@ function WeatherProvider({ children }) {
         place.place_id,
         measurementSystem
       );
-      setCurrentWeather(cw.current);
-      setUnits(UNITS[cw.units]);
+      if (cw && cw.current && cw.units) {
+        setCurrentWeather(cw.current);
+        setUnits(UNITS[cw.units] || {});
+      } else {
+        setCurrentWeather({});
+        setUnits({});
+      }
 
       const hf = await getWeatherData(
         "hourly",
         place.place_id,
         measurementSystem
       );
-      setHourlyForecast(hf.hourly.data);
+      setHourlyForecast(hf?.hourly?.data || []);
 
       const df = await getWeatherData(
         "daily",
         place.place_id,
         measurementSystem
       );
-      setDailyForecast(df.daily.data);
+      setDailyForecast(df?.daily?.data || []);
 
       setLoading(false);
     }

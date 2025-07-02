@@ -13,7 +13,7 @@ function Search() {
     setText(e.target.value);
     const data = await searchPlaces(e.target.value);
     setSearchResults(data);
-    setOpenSearchResults(data.length);
+    setOpenSearchResults(data.length > 0);
   }
   const changePlace = (place) => {
     setPlace(place);
